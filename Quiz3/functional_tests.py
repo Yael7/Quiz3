@@ -24,11 +24,9 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_home_page(self):
         """
-
         Quiz 3. Add A Page for me.
 	
 	To this web site, do the following: 
-
 	1. Add a test for a page title on the home page and then add the title
 	2. Add a test for an h1 type heading on the home page and then add the heading
 	3. Add a test for an image of your choice and then insert the image into the home page. 
@@ -37,7 +35,6 @@ class NewVisitorTest(unittest.TestCase):
 	5. Add a test for the result of clicking on the image area (the new page)
 	   then add the web page called "newpage.html" to make it pass
 	6. Test for a header on the new page and then add the header. 
-
 	When you are done, do the following:
 	    Create a repository in your github account called Quiz3
 	    Remove the .git directory from your cloned Quiz3
@@ -52,12 +49,31 @@ class NewVisitorTest(unittest.TestCase):
 	    
 	    Make sure you have pushed your work by typing
 	        git push
-
         """
 
-	# here is the first test (for free) 
+        # here is the first test (for free) 
         self.browser.get('http://localhost:8000/index.html')
 
-if __name__=="__main__":
-        unittest.main(warnings="ignore")
+        # test for title
+        self.assertIn('Quiz 3 Yael Green',self.browser.title)
 
+        # test for h1
+        a=self.browser.find_element_by_tag_name('h1')
+        self.assertIn('Quiz 3 Yael Green',a.text)
+
+        m=self.browser.find_element_by_tag_name('img')
+        self.assertIn('quizpic.jpg',m.get_attribute('src'))
+        a.click()
+
+        a=self.browser.find_element_by_id('newpage')
+        #this is the test for clickable
+        a.click()
+
+        h=self.browser.find_element_by_tag_name('h1')
+        self.assertIn("newpage",h.text)
+        m=self.browser.find_element_by_tag_name('img')
+        self.assertIn('newpage.jpg',m.get_attribute('src'))
+ 
+
+if __name__=="__main__":
+	unittest.main(warnings="ignore")
